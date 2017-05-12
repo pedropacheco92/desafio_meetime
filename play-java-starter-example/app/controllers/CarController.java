@@ -11,7 +11,7 @@ import javax.inject.*;
 @Singleton
 public class CarController extends Controller {
 
-    public Result index() {
+    public Result getCarros(Long token) {
         return ok("carro");
     }
 
