@@ -12,7 +12,7 @@ public class CarService {
 
     private Map<Long, Car> carros = new HashMap<>();
 
-    public Car getCarro(Integer carId) {
+    public Car getCarroById(Long carId) {
         return this.carros.get(carId);
     }
 
@@ -27,6 +27,10 @@ public class CarService {
         } else {
             return false;
         }
+    }
+
+    public Boolean deleteCarroById(Long carId) {
+        return this.carros.remove(carId) != null;
     }
 
 }
