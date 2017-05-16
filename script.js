@@ -1,3 +1,8 @@
+var app = angu
+
+
+
+
 function onNovoClick() {
     if (document.getElementById('test') == null){
         var test=document.createElement('section');
