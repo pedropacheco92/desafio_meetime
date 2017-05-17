@@ -1,6 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Car;
 import play.libs.Json;
@@ -8,7 +9,7 @@ import play.mvc.*;
 import services.CarService;
 
 import javax.inject.*;
-import javax.xml.transform.Result;
+import java.util.List;
 
 /**
  * Created by pedro on 11/05/17.
@@ -91,6 +92,14 @@ public class CarController extends Controller {
             return badRequest(createObjectNode("Carro com id:" + id + " nao encontrado", false));
         }
         return ok(createObjectNode("Carro com id:" + id + " foi deletado", true));
+    }
+
+    public Result listCars() {
+        List<Car> result = service.getAllCars();
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonNode jsonData = mapper.convertValue(result, JsonNode.class);
+        return ok(createObjectNode(jsonData, true));
     }
 
 

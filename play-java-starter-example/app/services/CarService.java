@@ -2,8 +2,7 @@ package services;
 
 import models.Car;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Pedro on 16/05/2017.
@@ -31,6 +30,10 @@ public class CarService {
 
     public Boolean deleteCarroById(Long carId) {
         return this.carros.remove(carId) != null;
+    }
+
+    public List<Car> getAllCars(){
+        return new ArrayList<>(carros.values());
     }
 
 }
