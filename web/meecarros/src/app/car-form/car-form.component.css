@@ -1,8 +1,26 @@
 .car_form {
     width: 500px;
-    height: 200px;
+    height: 285px;
     float: left;
     margin-left: 20px;
     margin-top: 16px;
     border: 1px solid black;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.form_field {
+    margin-bottom: 20px;
+}
+
+.label_form {
+    display: inline-block;
+    width: 100px;
+}
+
+.titulo {
+    font-size: 26px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
 }

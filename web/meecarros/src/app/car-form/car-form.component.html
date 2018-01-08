@@ -1,13 +1,19 @@
 <div class="car_form">
+  <p class="titulo">{{labelTitulo}}</p>
   <form>
-    Responsável:
-    <input type="text" name="responsavel"><br>
-    Modelo:
-    <input type="text" name="modelo"><br>
-    Ano:
-    <input type="text" name="ano"><br>
-    Cor:
-    <input type="text" name="cor"><br>
+    <span class="label_form">Responsável:</span>
+    <select class="form_field" name="profile" ngModel>
+        <option *ngFor="let item of items">
+            {{ item.modelo }}
+        </option>
+    </select><br>
+
+    <span class="label_form">Modelo:</span>
+    <input class="form_field" type="text" name="modelo"><br>
+    <span class="label_form">Ano:</span>
+    <input class="form_field" type="text" name="ano"><br>
+    <span class="label_form">Cor:</span>
+    <input class="form_field" type="text" name="cor"><br>
     <input type="submit" value="Salvar">
   </form>
 </div>

@@ -1,3 +1,4 @@
+import { CarService } from './../car.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./car-form.component.css']
 })
 export class CarFormComponent implements OnInit {
+  labelTitulo;
+  items;
 
-  constructor() { }
+  constructor(private carService: CarService) { 
+    this.labelTitulo = "Novo Carro";
+    this.items = carService.getAllCars();
+  }
 
   ngOnInit() {
   }
