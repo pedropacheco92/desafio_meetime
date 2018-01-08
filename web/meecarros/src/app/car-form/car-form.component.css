@@ -1,0 +1,8 @@
+.car_form {
+    width: 500px;
+    height: 200px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 16px;
+    border: 1px solid black;
+}

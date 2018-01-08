@@ -1,0 +1,14 @@
+.car_list {
+    text-align: left;
+    float: left;
+}
+
+.car {
+    border: 1px solid black;
+    height: 50px;
+    width: 200px;
+}
+
+ul {
+    list-style-type: none;
+}
