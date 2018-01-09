@@ -1,3 +1,6 @@
-GET     /                           controllers.HomeController.index
-
-->     /v1/posts                    posts.Routes
+# Routes
+GET     /carros             controllers.CarController.listCars
+POST    /carros/:id         controllers.CarController.retrieve(id:Long)
+POST    /carros             controllers.CarController.create
+PUT     /carros             controllers.CarController.update
+DELETE  /carros/d/:id       controllers.CarController.delete(id:Long)
