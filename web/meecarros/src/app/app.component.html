@@ -10,8 +10,7 @@
     <app-car-list></app-car-list>
 
     <!-- Formulário para o preenchimento de novos carros -->
-    <app-car-form ng-show="novoCarroVisible"></app-car-form>
-
+    <app-car-form *ngIf="novoCarroVisible"></app-car-form>
   </div>
 
 </div>

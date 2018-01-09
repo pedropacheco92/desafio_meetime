@@ -8,8 +8,8 @@ import { CarService } from './car.service';
   providers: [CarService]
 })
 export class AppComponent {
-  title = 'app';
-  novoCarroVisible = false;
+  title: string = 'app';
+  novoCarroVisible: boolean = false;
 
   btnNovoClick(): void {
     this.novoCarroVisible = !this.novoCarroVisible;
