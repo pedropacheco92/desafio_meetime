@@ -9,8 +9,9 @@ import { CarService } from './car.service';
 })
 export class AppComponent {
   title = 'app';
+  novoCarroVisible = false;
 
   btnNovoClick(): void {
-    alert('test');
+    this.novoCarroVisible = !this.novoCarroVisible;
   }
 }
