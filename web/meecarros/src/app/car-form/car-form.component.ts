@@ -12,10 +12,10 @@ export class CarFormComponent implements OnInit {
 
   constructor(private carService: CarService) { 
     this.labelTitulo = "Novo Carro";
-    this.items = carService.getAllCars();
   }
-
+  
   ngOnInit() {
+    this.items = this.carService.getAllCars();
   }
 
 }

@@ -1,4 +1,4 @@
-.car_form {
+.car-form {
     width: 500px;
     height: 285px;
     float: left;
@@ -9,11 +9,11 @@
     padding-left: 15px;
 }
 
-.form_field {
+.form-field {
     margin-bottom: 20px;
 }
 
-.label_form {
+.label-form {
     display: inline-block;
     width: 100px;
 }
