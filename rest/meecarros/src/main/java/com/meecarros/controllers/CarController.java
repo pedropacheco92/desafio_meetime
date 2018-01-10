@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,18 +31,18 @@ public class CarController {
 		return this.service.getCar(carroId);
 	}
 
-	@RequestMapping(value = "/{carroId}&{prospectId}", method = RequestMethod.DELETE) // TODO verificar url
+	@RequestMapping(value = "/{carroId}/prospects/{prospectId}", method = RequestMethod.DELETE)
 	public void deleteCar(@PathVariable Long carroId, @PathVariable Long prospectId) {
 		this.service.deleteCar(carroId, prospectId);
 	}
 
-	@RequestMapping(method = RequestMethod.POST) // TODO url e param
-	public void saveCar(Car car, Long prospectId) {
+	@RequestMapping(value = "/{carroId}/prospects/{prospectId}", method = RequestMethod.POST)
+	public void saveCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long prospectId) {
 		this.service.saveCar(car, prospectId);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT) // TODO url e param
-	public void editCar(Car car, Long prospectId) {
+	@RequestMapping(value = "/{carroId}/prospects/{prospectId}", method = RequestMethod.PUT)
+	public void editCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long prospectId) {
 		this.service.editCar(car);
 	}
 }
