@@ -1,5 +1,6 @@
 package com.meecarros.services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class CarService {
 	private void init() {
 		this.prostectService.getAllProspects().stream().map(Prospect::getId).forEach(p -> {
 			long car = (long) new Random().nextInt(3) + 1;
-			prospects.put(p, Arrays.asList(car));
+			prospects.put(p, new ArrayList<>(Arrays.asList(car)));
 		});
 	}
 
@@ -53,9 +54,9 @@ public class CarService {
 		return carros.get(id);
 	}
 
-	public void deleteCar(Long carroId, Long prospectId) {
+	public boolean deleteCar(Long carroId, Long prospectId) {
 		carros.remove(carroId);
-		prospects.get(prospectId).remove(carroId);
+		return prospects.get(prospectId).remove(carroId);
 	}
 
 	public void editCar(Car car) {

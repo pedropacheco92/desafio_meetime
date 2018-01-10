@@ -31,18 +31,25 @@ public class CarController {
 		return this.service.getCar(carroId);
 	}
 
+	// @RequestMapping(method = RequestMethod.GET)
+	// public Collection<Car> getCarsByProspectId(@RequestParam("prospecId") Long prospectId) {
+	// return this.service.getCarsByProspectId(prospectId);
+	// }
+
 	@RequestMapping(value = "/{carroId}/prospects/{prospectId}", method = RequestMethod.DELETE)
-	public void deleteCar(@PathVariable Long carroId, @PathVariable Long prospectId) {
-		this.service.deleteCar(carroId, prospectId);
+	public boolean deleteCar(@PathVariable Long carroId, @PathVariable Long prospectId) {
+		return this.service.deleteCar(carroId, prospectId);
 	}
 
 	@RequestMapping(value = "/{carroId}/prospects/{prospectId}", method = RequestMethod.POST)
-	public void saveCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long prospectId) {
+	public Car saveCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long prospectId) {
 		this.service.saveCar(car, prospectId);
+		return car;
 	}
 
 	@RequestMapping(value = "/{carroId}/prospects/{prospectId}", method = RequestMethod.PUT)
-	public void editCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long prospectId) {
+	public Car editCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long prospectId) {
 		this.service.editCar(car);
+		return car;
 	}
 }
