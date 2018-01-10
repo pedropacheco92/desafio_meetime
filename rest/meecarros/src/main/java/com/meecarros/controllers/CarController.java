@@ -1,9 +1,10 @@
 package com.meecarros.controllers;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,27 @@ public class CarController {
 	private CarService service;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Car> listAllCars() {
+	public Collection<Car> listAllCars() {
 		return this.service.getAllCars();
+	}
+
+	@RequestMapping(value = "/{carroId}", method = RequestMethod.GET)
+	public Car getCar(@PathVariable Long carroId) {
+		return this.service.getCar(carroId);
+	}
+
+	@RequestMapping(value = "/{carroId}&{prospectId}", method = RequestMethod.DELETE) // TODO verificar url
+	public void deleteCar(@PathVariable Long carroId, @PathVariable Long prospectId) {
+		this.service.deleteCar(carroId, prospectId);
+	}
+
+	@RequestMapping(method = RequestMethod.POST) // TODO url e param
+	public void saveCar(Car car, Long prospectId) {
+		this.service.saveCar(car, prospectId);
+	}
+
+	@RequestMapping(method = RequestMethod.PUT) // TODO url e param
+	public void editCar(Car car, Long prospectId) {
+		this.service.editCar(car);
 	}
 }
