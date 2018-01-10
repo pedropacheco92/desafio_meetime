@@ -5,8 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Car {
+public class Prospect {
 
-	private final String modelo;
+	private final long id;
+	private final String nome;
 
 }
