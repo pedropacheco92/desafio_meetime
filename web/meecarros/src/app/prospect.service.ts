@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class ProspectService {
 
-  private url: string = 'http://localhost:8080/v1/prospects';
+  private url: string = 'http://localhost:9000/v1/prospects';
 
   private prospects: IProspect[];
 
