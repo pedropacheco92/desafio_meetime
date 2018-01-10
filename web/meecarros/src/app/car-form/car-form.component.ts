@@ -1,5 +1,7 @@
 import { CarService } from './../car.service';
 import { Component, OnInit } from '@angular/core';
+import { ProspectService } from '../prospect.service';
+import { IProspect } from '../models/prospect';
 
 @Component({
   selector: 'app-car-form',
@@ -8,15 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarFormComponent implements OnInit {
   labelTitulo;
-  items;
+  private items: IProspect[];
 
-  constructor(private carService: CarService) { 
+  constructor(private carService: CarService, private prospectService: ProspectService) { 
     this.labelTitulo = "Novo Carro";
   }
   
   ngOnInit() {
-    this.items = this.carService.getAllCars();
-    console.log(this.carService.getCars());
+    this.prospectService.getProspects().subscribe(p => {
+      this.items = p;
+    });
+    // console.log("--------------")
+    // console.log(this.items);
   }
 
 }

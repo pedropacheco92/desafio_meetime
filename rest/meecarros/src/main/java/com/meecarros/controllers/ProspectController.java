@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.meecarros.models.Prospect;
@@ -18,6 +19,7 @@ public class ProspectController {
 	@Autowired
 	private ProspectService service;
 
+	@RequestMapping(method = RequestMethod.GET)
 	public List<Prospect> getAllProspects() {
 		return this.service.getAllProspects();
 	}

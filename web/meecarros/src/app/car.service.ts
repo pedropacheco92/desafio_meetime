@@ -1,12 +1,12 @@
+import { ICar } from './models/car';
 import { Injectable } from '@angular/core';
-import { ICar } from './car';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CarService {
 
-  private url: string = 'http://localhost:8080/carros';
+  private url: string = 'http://localhost:8080/v1/carros';
 
   results: string[];
 

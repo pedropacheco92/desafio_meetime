@@ -5,7 +5,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.meecarros.models.Person;
 import com.meecarros.models.Prospect;
 
 @Service
@@ -20,7 +22,10 @@ public class ProspectService {
 	}
 
 	public List<Prospect> getAllProspects() {
-		return null;
+		RestTemplate restTemplate = new RestTemplate();
+		Person persons = restTemplate.getForObject(URL + "/persons?api_token=" + TOKEN, Person.class);
+
+		return persons.getData();
 	}
 
 }
