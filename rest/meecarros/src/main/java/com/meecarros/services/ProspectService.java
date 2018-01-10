@@ -9,21 +9,20 @@ import org.springframework.web.client.RestTemplate;
 
 import com.meecarros.models.Person;
 import com.meecarros.models.Prospect;
+import com.meecarros.utils.Parameters;
 
 @Service
 public class ProspectService {
 
-	private static final String TOKEN = "7b89e5ee230957c0971499e1c502fc18e0e23c89";
-
-	private static final String URL = "https://teste7.pipedrive.com/v1";
+	private RestTemplate restTemplate;
 
 	@PostConstruct
 	private void init() {
+		this.restTemplate = new RestTemplate();
 	}
 
 	public List<Prospect> getAllProspects() {
-		RestTemplate restTemplate = new RestTemplate();
-		Person persons = restTemplate.getForObject(URL + "/persons?api_token=" + TOKEN, Person.class);
+		Person persons = this.restTemplate.getForObject(Parameters.URL + "/persons?api_token=" + Parameters.TOKEN, Person.class);
 
 		return persons.getData();
 	}

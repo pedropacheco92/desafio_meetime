@@ -7,6 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Car {
 
-	private final String modelo;
+	private Long id;
+
+	private String modelo;
 
 }
