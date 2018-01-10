@@ -6,16 +6,14 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class CarService {
 
-  private url: string = 'http://localhost:8080/greeting';
+  private url: string = 'http://localhost:8080/carros';
 
   results: string[];
 
   constructor(private http: HttpClient) { }
 
-  getCars(): void {
-    console.log(1);
+  getCars() {
     this.http.get(this.url).subscribe(data => console.log(data));
-    console.log(2);
   }
 
   private handleError(error: Response) {
