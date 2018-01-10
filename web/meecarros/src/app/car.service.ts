@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class CarService {
 
-  private url: string = 'http://localhost:8080/test';
+  private url: string = 'http://localhost:8080/greeting';
 
   results: string[];
 

@@ -1,4 +1,4 @@
-package hello;
+package com.meecarros.models;
 
 public class Greeting {
 

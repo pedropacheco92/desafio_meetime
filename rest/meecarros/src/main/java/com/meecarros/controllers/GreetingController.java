@@ -1,12 +1,19 @@
-package hello;
+package com.meecarros.controllers;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.meecarros.models.Car;
+import com.meecarros.models.Greeting;
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class GreetingController {
 
@@ -19,8 +26,8 @@ public class GreetingController {
 				String.format(template, name));
 	}
 
-	@RequestMapping(path = "/fdp", method = RequestMethod.GET)
-	public String testeDoCaralho() {
-		return "FILHO DA PUTA DO CARALHO";
+	@RequestMapping(path = "/carros", method = RequestMethod.GET)
+	public List<Car> listAllCars() {
+		return Arrays.asList(new Car("teste"));
 	}
 }
