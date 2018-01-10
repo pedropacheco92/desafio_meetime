@@ -5,11 +5,17 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.meecarros.models.Car;
+import com.meecarros.models.Cor;
+import com.meecarros.models.Prospect;
 
 @Service
 public class CarService {
@@ -19,12 +25,20 @@ public class CarService {
 	private static Map<Long, List<Long>> prospects = new HashMap<>();
 
 	static {
-		carros.put(1L, new Car(1L, "carro1"));
-		carros.put(2L, new Car(2L, "carro2"));
-		carros.put(3L, new Car(3L, "carro3"));
+		carros.put(1L, new Car(1L, "carro1", Cor.PRETO, "2013"));
+		carros.put(2L, new Car(2L, "carro2", Cor.BRANCO, "2000"));
+		carros.put(3L, new Car(3L, "carro3", Cor.PRETO, "1990"));
+	}
 
-		prospects.put(1L, Arrays.asList(1L, 2L));
-		prospects.put(2L, Arrays.asList(3L));
+	@Autowired
+	private ProspectService prostectService;
+
+	@PostConstruct
+	private void init() {
+		this.prostectService.getAllProspects().stream().map(Prospect::getId).forEach(p -> {
+			long car = (long) new Random().nextInt(3) + 1;
+			prospects.put(p, Arrays.asList(car));
+		});
 	}
 
 	public Collection<Car> getAllCars() {

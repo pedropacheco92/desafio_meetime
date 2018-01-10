@@ -11,4 +11,8 @@ public class Car {
 
 	private String modelo;
 
+	private Cor cor;
+
+	private String ano;
+
 }
