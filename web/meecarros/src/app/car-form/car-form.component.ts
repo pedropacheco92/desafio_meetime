@@ -16,6 +16,7 @@ export class CarFormComponent implements OnInit {
   
   ngOnInit() {
     this.items = this.carService.getAllCars();
+    console.log(this.carService.getCars());
   }
 
 }

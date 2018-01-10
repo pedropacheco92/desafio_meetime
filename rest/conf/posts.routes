@@ -1,6 +1,0 @@
-# Routes
-GET     /             controllers.CarController.listCars
-GET     /:id          controllers.CarController.retrieve(id:Long)
-POST    /             controllers.CarController.create
-PUT     /             controllers.CarController.update
-DELETE  /:id          controllers.CarController.delete(id:Long)
