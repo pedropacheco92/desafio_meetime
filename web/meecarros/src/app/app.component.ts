@@ -24,6 +24,7 @@ export class AppComponent {
 
   onSearch(value: string): void {
     let id = Number(value); // verificar erro
+    this.carList.personId = id;
     this.prospectService.getCars(id).subscribe(c => this.carList.cars = c);
   }
 }

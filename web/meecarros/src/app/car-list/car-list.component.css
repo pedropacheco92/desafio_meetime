@@ -8,10 +8,24 @@
     border: 1px solid black;
     height: 50px;
     width: 200px;
-    padding-top: 20px;
+    padding-top: 10px;
     padding-left: 5px;
+    margin-left: 45px;
+    margin-top: 16px;
 }
 
-ul {
-    list-style-type: none;
+.button-car-list {
+    background-color: white;
+    border: none;
+    float: right;
+    height: 35px;
+}
+
+.button-image{
+    height: 35px;
+}
+
+.button-text {
+    position: relative;
+    top: 10px;
 }

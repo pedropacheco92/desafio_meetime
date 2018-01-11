@@ -19,15 +19,6 @@ export class CarService {
   private handleError(error: Response) {
     console.log(error);
     return Observable.throw(error);
-} 
+  } 
 
-  getAllCars(): ICar[] {
-    return [
-      {
-        modelo: "Fusca"
-      }, {
-        modelo: "Ferrari"
-      }
-    ];
-  }
 }
