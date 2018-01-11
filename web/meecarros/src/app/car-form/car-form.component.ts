@@ -2,6 +2,7 @@ import { CarService } from './../car.service';
 import { Component, OnInit } from '@angular/core';
 import { ProspectService } from '../prospect.service';
 import { IProspect } from '../models/prospect';
+import { ICar } from '../models/car';
 
 @Component({
   selector: 'app-car-form',
@@ -11,6 +12,13 @@ import { IProspect } from '../models/prospect';
 export class CarFormComponent implements OnInit {
   labelTitulo;
   private items: IProspect[];
+  private model: ICar = {
+    id: 3,
+    token: 3,
+    modelo: "string",
+    ano: "string",
+    cor: "string" 
+  };
 
   constructor(private carService: CarService, private prospectService: ProspectService) { 
     this.labelTitulo = "Novo Carro";
@@ -20,8 +28,11 @@ export class CarFormComponent implements OnInit {
     this.prospectService.getProspects().subscribe(p => {
       this.items = p;
     });
-    // console.log("--------------")
-    // console.log(this.items);
+  }
+
+  onSubmit() {
+    console.log("salvou");
+    console.log(this.model);
   }
 
 }

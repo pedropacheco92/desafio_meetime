@@ -8,7 +8,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum Cor {
 
 	PRETO(1L),
-	BRANCO(2L);
+	BRANCO(2L),
+	VERDE(3L);
 
 	private Long id;
 

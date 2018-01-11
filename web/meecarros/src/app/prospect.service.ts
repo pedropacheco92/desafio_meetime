@@ -3,6 +3,7 @@ import { IPersons } from './models/persons';
 import { IProspect } from './models/prospect';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ICar } from './models/car';
 
 @Injectable()
 export class ProspectService {
@@ -16,4 +17,9 @@ export class ProspectService {
   getProspects(): Observable<IProspect[]>{
     return this.http.get<IProspect[]>(this.url);
   }
+
+  getCars(id: number): Observable<ICar[]> {
+    return this.http.get<ICar[]>(this.url+ "/"+ id + "/cars");
+  }
+
 }

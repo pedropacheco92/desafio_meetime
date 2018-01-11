@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.meecarros.models.Car;
 import com.meecarros.models.Cor;
-import com.meecarros.models.Prospect;
+import com.meecarros.models.Person;
 
 @Service
 public class CarService {
@@ -32,11 +32,11 @@ public class CarService {
 	}
 
 	@Autowired
-	private ProspectService prostectService;
+	private PersonService prostectService;
 
 	@PostConstruct
 	private void init() {
-		this.prostectService.getAllProspects().stream().map(Prospect::getId).forEach(p -> {
+		this.prostectService.getAllProspects().stream().map(Person::getId).forEach(p -> {
 			long car = (long) new Random().nextInt(3) + 1;
 			prospects.put(p, new ArrayList<>(Arrays.asList(car)));
 		});
@@ -47,7 +47,11 @@ public class CarService {
 	}
 
 	public Collection<Car> getCarsByProspectId(Long id) {
-		return prospects.get(id).stream().map(carros::get).collect(Collectors.toList());
+		if (prospects.containsKey(id)) {
+			return prospects.get(id).stream().map(carros::get).collect(Collectors.toList());
+		} else {
+			return Arrays.asList();
+		}
 	}
 
 	public Car getCar(Long id) {
@@ -55,6 +59,9 @@ public class CarService {
 	}
 
 	public boolean deleteCar(Long carroId, Long prospectId) {
+		if (!prospects.containsKey(prospectId)) {
+			return false;
+		}
 		carros.remove(carroId);
 		return prospects.get(prospectId).remove(carroId);
 	}

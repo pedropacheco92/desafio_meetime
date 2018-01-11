@@ -1,6 +1,6 @@
 <div class="car-form">
   <p class="titulo">{{labelTitulo}}</p>
-  <form>
+  <form (ngSubmit)="onSubmit()" #carForm="ngForm">
     <span class="label-form">Responsável:</span>
     <select class="form-field" name="profile" ngModel>
         <option *ngFor="let item of items">
@@ -9,11 +9,11 @@
     </select><br>
 
     <span class="label-form">Modelo:</span>
-    <input class="form-field" type="text" name="modelo"><br>
+    <input class="form-field" type="text" required [(ngModel)]="model.modelo" name="modelo"><br>
     <span class="label-form">Ano:</span>
-    <input class="form-field" type="text" name="ano"><br>
+    <input class="form-field" type="text" required [(ngModel)]="model.ano" name="ano"><br>
     <span class="label-form">Cor:</span>
-    <input class="form-field" type="text" name="cor"><br>
+    <input class="form-field" type="text" required [(ngModel)]="model.cor" name="cor"><br>
     <input type="submit" value="Salvar">
   </form>
 </div>

@@ -1,5 +1,5 @@
 <div style="text-align:center">
-    <input type="text" class="search_token" placeholder="Token do pipedrive">
+    <input type="text" class="search_token" placeholder="Token do pipedrive" #box (keyup.enter)="onSearch(box.value)" >
     
   <div class="main_page">
     <div class="buttons">

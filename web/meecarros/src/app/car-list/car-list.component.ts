@@ -1,3 +1,5 @@
+import { ICar } from './../models/car';
+import { ProspectService } from './../prospect.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,15 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./car-list.component.css']
 })
 export class CarListComponent implements OnInit {
-  items;
-
-  constructor() {
-    this.items = [
-      "carro 1",
-      "carro 2"
-    ]
-   }
-
+  cars: ICar[];
+  
+  constructor(private prospectService: ProspectService) {
+    
+  }
   ngOnInit() {
   }
 

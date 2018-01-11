@@ -1,7 +1,5 @@
 package com.meecarros.models;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -12,8 +10,8 @@ import lombok.Getter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Person {
 
-	private boolean success;
+	private long id;
 
-	private List<Prospect> data;
+	private String name;
 
 }
