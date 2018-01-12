@@ -1,4 +1,4 @@
-export interface IProspect {
+export interface IPerson {
 
     id: number;
 

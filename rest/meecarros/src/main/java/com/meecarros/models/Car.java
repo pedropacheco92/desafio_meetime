@@ -2,7 +2,9 @@ package com.meecarros.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 @AllArgsConstructor
 public class Car {
@@ -14,5 +16,7 @@ public class Car {
 	private Cor cor;
 
 	private String ano;
+
+	private Person person;
 
 }

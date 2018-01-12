@@ -7,10 +7,10 @@
     </div>
 
     <!-- Lista de carros registrados -->
-    <app-car-list></app-car-list>
+    <app-car-list (carEdited)="onCarEdited($event)"></app-car-list>
 
     <!-- Formulário para o preenchimento de novos carros -->
-    <app-car-form *ngIf="novoCarroVisible"></app-car-form>
+    <app-car-form *ngIf="novoCarroVisible" (saved)="onCarSaved($event)"></app-car-form>
   </div>
 
 </div>

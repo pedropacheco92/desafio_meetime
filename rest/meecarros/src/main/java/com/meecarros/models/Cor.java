@@ -1,21 +1,20 @@
 package com.meecarros.models;
 
-import lombok.AllArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum Cor {
 
-	PRETO(1L),
-	BRANCO(2L),
-	VERDE(3L);
-
-	private Long id;
+	PRETO, BRANCO, VERDE;
 
 	@JsonValue
-	public Long getId() {
-		return this.id;
+	@Override
+	public String toString() {
+		return StringUtils.capitalize(super.toString().toLowerCase());
 	}
 
 }

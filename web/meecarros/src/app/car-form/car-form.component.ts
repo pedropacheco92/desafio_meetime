@@ -1,8 +1,10 @@
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
 import { CarService } from './../car.service';
-import { Component, OnInit } from '@angular/core';
 import { ProspectService } from '../prospect.service';
-import { IProspect } from '../models/prospect';
+
 import { ICar } from '../models/car';
+import { IPerson } from './../models/person';
 
 @Component({
   selector: 'app-car-form',
@@ -10,15 +12,25 @@ import { ICar } from '../models/car';
   styleUrls: ['./car-form.component.css']
 })
 export class CarFormComponent implements OnInit {
+  @Output() saved = new EventEmitter<ICar>();
+
   labelTitulo;
-  private items: IProspect[];
-  private model: ICar = {
-    id: 3,
-    token: 3,
-    modelo: "string",
-    ano: "string",
-    cor: "string" 
+  private items: IPerson[];
+
+  private cores: string[] = ["Preto", "Branco", "Verde"];
+
+  model: ICar = {
+    id: 0,
+    person: {
+      id: 0,
+      name: ""
+    },
+    modelo: "",
+    ano: "",
+    cor: "" 
   };
+
+  private person: string;
 
   constructor(private carService: CarService, private prospectService: ProspectService) { 
     this.labelTitulo = "Novo Carro";
@@ -31,8 +43,16 @@ export class CarFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("salvou");
-    console.log(this.model);
+    if (this.model.id == 0){
+      this.prospectService.saveCar(this.model).subscribe(c => {
+        this.saved.emit(c);
+        alert("Carro salvo!");
+      });
+    } else {
+      this.prospectService.editCar(this.model).subscribe(c => {
+        this.saved.emit(c);
+        alert("Carro editado!");
+      });
+    }   
   }
-
 }

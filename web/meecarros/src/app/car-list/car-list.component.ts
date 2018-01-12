@@ -1,6 +1,6 @@
 import { ICar } from './../models/car';
 import { ProspectService } from './../prospect.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-car-list',
@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./car-list.component.css']
 })
 export class CarListComponent implements OnInit {
-  cars: ICar[];
+  @Output() carEdited = new EventEmitter<ICar>();
+  
+  cars: ICar[] = [];
   personId: number;
   
   constructor(private prospectService: ProspectService) {
@@ -30,8 +32,8 @@ export class CarListComponent implements OnInit {
       });    
   }
   
-  onEdit(event: any): void {
-    console.log(event.srcElement.id);
+  onEdit(item: ICar): void {
+    this.carEdited.emit(item);
   }
 
 }

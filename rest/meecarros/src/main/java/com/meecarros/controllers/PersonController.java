@@ -17,7 +17,7 @@ import com.meecarros.services.PersonService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/v1/prospects")
+@RequestMapping("/v1/persons")
 public class PersonController {
 
 	@Autowired
@@ -33,7 +33,7 @@ public class PersonController {
 
 	@RequestMapping(value = "/{prospectId}/cars", method = RequestMethod.GET)
 	public Collection<Car> getCarsByProspectId(@PathVariable Long prospectId) {
-		return this.carService.getCarsByProspectId(prospectId);
+		return this.carService.getCarsByPersonId(prospectId);
 	}
 
 	@RequestMapping(value = "/{prospectId}/cars/{carroId}", method = RequestMethod.DELETE)
@@ -43,14 +43,12 @@ public class PersonController {
 
 	@RequestMapping(value = "/{prospectId}/cars/{carroId}", method = RequestMethod.POST)
 	public Car saveCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long prospectId) {
-		this.carService.saveCar(car, prospectId);
-		return car;
+		return this.carService.saveCar(car);
 	}
 
 	@RequestMapping(value = "/{prospectId}/cars/{carroId}", method = RequestMethod.PUT)
 	public Car editCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long prospectId) {
-		this.carService.editCar(car);
-		return car;
+		return this.carService.editCar(car);
 	}
 
 }

@@ -1,12 +1,10 @@
 package com.meecarros.services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -23,12 +21,12 @@ public class CarService {
 
 	private static Map<Long, Car> carros = new HashMap<>();
 
-	private static Map<Long, List<Long>> prospects = new HashMap<>();
+	private static Map<Long, Person> persons = new HashMap<>();
 
 	static {
-		carros.put(1L, new Car(1L, "carro1", Cor.PRETO, "2013"));
-		carros.put(2L, new Car(2L, "carro2", Cor.BRANCO, "2000"));
-		carros.put(3L, new Car(3L, "carro3", Cor.PRETO, "1990"));
+		carros.put(1L, new Car(1L, "carro1", Cor.PRETO, "2013", null));
+		carros.put(2L, new Car(2L, "carro2", Cor.BRANCO, "2000", null));
+		carros.put(3L, new Car(3L, "carro3", Cor.PRETO, "1990", null));
 	}
 
 	@Autowired
@@ -36,21 +34,24 @@ public class CarService {
 
 	@PostConstruct
 	private void init() {
-		this.prostectService.getAllProspects().stream().map(Person::getId).forEach(p -> {
-			long car = (long) new Random().nextInt(3) + 1;
-			prospects.put(p, new ArrayList<>(Arrays.asList(car)));
-		});
+		this.prostectService.getAllProspects().stream().forEach(p -> persons.put(p.getId(), p));
+
+		// todos os carros inicias somente com a pessoa 1
+		carros.values().stream().forEach(car -> car.setPerson(persons.get(1L)));
 	}
 
 	public Collection<Car> getAllCars() {
 		return carros.values();
 	}
 
-	public Collection<Car> getCarsByProspectId(Long id) {
-		if (prospects.containsKey(id)) {
-			return prospects.get(id).stream().map(carros::get).collect(Collectors.toList());
+	public Collection<Car> getCarsByPersonId(Long id) {
+		if (persons.containsKey(id)) {
+			return carros.values()
+					.stream()
+					.filter(car -> id.equals(car.getPerson().getId()))
+					.collect(Collectors.toList());
 		} else {
-			return Arrays.asList();
+			return new ArrayList<>();
 		}
 	}
 
@@ -59,20 +60,23 @@ public class CarService {
 	}
 
 	public boolean deleteCar(Long carroId, Long prospectId) {
-		if (!prospects.containsKey(prospectId)) {
+		if (!persons.containsKey(prospectId)) {
 			return false;
 		}
-		carros.remove(carroId);
-		return prospects.get(prospectId).remove(carroId);
+
+		return Objects.nonNull(carros.remove(carroId));
 	}
 
-	public void editCar(Car car) {
+	public Car editCar(Car car) {
 		carros.replace(car.getId(), car);
+		return car;
 	}
 
-	public void saveCar(Car car, Long prospectId) {
-		carros.put(car.getId(), car);
-		prospects.get(prospectId).add(car.getId());
+	public Car saveCar(Car car) {
+		Long id = carros.keySet().stream().max(Long::compareTo).get() + 1;
+		car.setId(id);
+		carros.put(id, car);
+		return car;
 	}
 
 }

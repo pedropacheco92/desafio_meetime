@@ -1,7 +1,9 @@
 <div class="car-list">
+    <p class="car-size">Carros: {{cars.length}}</p>
+
     <div *ngFor="let item of cars; let i = index" class="car">
       <span class="button-text">{{item.modelo}}</span>
       <input id="delete{{item.id}}" type="image" alt="delete" class="button-car-list" (click)='onDelete($event)' src="https://png.icons8.com/windows/50/000000/trash.png">
-      <input id="edit{{item.id}}" type="image" alt="edit" class="button-car-list" (click)='onEdit($event)' src="https://png.icons8.com/windows/50/000000/edit.png">
+      <input id="edit{{item.id}}" type="image" alt="edit" class="button-car-list" (click)='onEdit(item)' src="https://png.icons8.com/windows/50/000000/edit.png">
     </div>
 </div>

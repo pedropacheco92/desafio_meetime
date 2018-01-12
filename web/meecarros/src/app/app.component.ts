@@ -1,3 +1,4 @@
+import { CarFormComponent } from './car-form/car-form.component';
 import { CarListComponent } from './car-list/car-list.component';
 import { ICar } from './models/car';
 import { Component, ViewChild } from '@angular/core';
@@ -15,6 +16,7 @@ export class AppComponent {
   novoCarroVisible: boolean = false;
 
   @ViewChild (CarListComponent) carList;
+  @ViewChild (CarFormComponent) carForm;
 
   constructor(private prospectService: ProspectService) { }
 
@@ -26,5 +28,15 @@ export class AppComponent {
     let id = Number(value); // verificar erro
     this.carList.personId = id;
     this.prospectService.getCars(id).subscribe(c => this.carList.cars = c);
+  }
+
+  onCarSaved(event: ICar): void {
+    this.novoCarroVisible = false;
+    this.carList.cars.push(event);
+  }
+
+  onCarEdited(event: ICar): void {
+    this.novoCarroVisible = true;
+    this.carForm.model = event;
   }
 }
