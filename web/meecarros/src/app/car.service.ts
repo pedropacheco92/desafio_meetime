@@ -12,8 +12,8 @@ export class CarService {
 
   constructor(private http: HttpClient) { }
 
-  getCars() {
-    this.http.get(this.url).subscribe(data => console.log(data));
+  getCars(): Observable<ICar[]> {
+    return this.http.get<ICar[]>(this.url);
   }
       
   deleteCar(id: number): Observable<boolean> {
@@ -25,7 +25,7 @@ export class CarService {
   }
 
   editCar(car: ICar): Observable<ICar> {
-    return this.http.post<ICar>(this.url + "/" + car.id, car);
+    return this.http.put<ICar>(this.url + "/" + car.id, car);
   }
 
 }

@@ -40,18 +40,17 @@ export class AppComponent {
   }
 
   onSearch(value: string): void {
-    console.log(value);
     this.personService.getPersons(value).subscribe(persons => {
-      console.log(persons);
       if (!persons) {
         this.snackBar.open("Este token não existe no Pipedrive!", null, { duration: 2000, verticalPosition: 'top' });
       } else if (!persons.length){
         this.snackBar.open("Não existem pessoas cadastradas com esse token!", null, { duration: 2000, verticalPosition: 'top' });
       } else {
-        this.snackBar.open("Token encontrado com " + persons.length + "pessoas", null, { duration: 2000, verticalPosition: 'top' });
+        this.snackBar.open("Token encontrado com " + persons.length + " pessoas", null, { duration: 2000, verticalPosition: 'top' });
         this.showBtn = true;
         this.pessoas = persons;
         this.carList.pessoas = persons;
+        this.carService.getCars().subscribe(c => this.carList.cars = c);
       }
     });
   }

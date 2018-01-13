@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, Output, EventEmitter, Inject, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { FormsModule, FormControl, FormGroup, Validators }   from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -13,7 +13,7 @@ import { IPerson } from './../models/person';
   templateUrl: './car-form.component.html',
   styleUrls: ['./car-form.component.css']
 })
-export class CarFormComponent {
+export class CarFormComponent implements AfterViewChecked {
   @Output() saved = new EventEmitter<ICar>();
 
   private labelTitulo;
@@ -48,13 +48,17 @@ export class CarFormComponent {
     cor: "" 
   };
 
-  constructor(public dialogRef: MatDialogRef<CarFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { 
+  constructor(public dialogRef: MatDialogRef<CarFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private ref: ChangeDetectorRef) { 
     this.items = data.pessoas;
     this.labelTitulo = data.titulo;
     if (data.value) {
       this.model = data.value;
       this.selected = this.model.person.id;
     }
+  }
+
+  ngAfterViewChecked(): void {
+    this.ref.detectChanges();
   }
 
   getErrorMessage(): string {
