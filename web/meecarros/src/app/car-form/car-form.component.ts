@@ -3,7 +3,7 @@ import { FormsModule }   from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { CarService } from './../car.service';
-import { ProspectService } from '../prospect.service';
+import { PersonService } from '../person.service';
 
 import { ICar } from '../models/car';
 import { IPerson } from './../models/person';

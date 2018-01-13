@@ -5,14 +5,14 @@ import { CarListComponent } from './car-list/car-list.component';
 import { ICar } from './models/car';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { CarService } from './car.service';
-import { ProspectService } from './prospect.service';
+import { PersonService } from './person.service';
 import { IPerson } from './models/person';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'] ,
-  providers: [CarService, ProspectService]
+  providers: [CarService, PersonService]
 })
 export class AppComponent implements OnInit {
   title: string = 'app';
@@ -21,10 +21,10 @@ export class AppComponent implements OnInit {
 
   @ViewChild (CarListComponent) carList;
 
-  constructor(private prospectService: ProspectService, public dialog: MatDialog) { }
+  constructor(private personService: PersonService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.prospectService.getProspects().subscribe(p => {
+    this.personService.getPersons().subscribe(p => {
       this.pessoas = p;
     });
   }
@@ -35,8 +35,8 @@ export class AppComponent implements OnInit {
 
   onSearch(value: string): void {
     let id = Number(value); // verificar erro
-    this.carList.personId = id;
-    this.prospectService.getCars(id).subscribe(c => this.carList.cars = c);
+    this.personService.getPerson(id).subscribe(p => this.carList.pessoa = p);
+    this.personService.getCarsByPersonId(id).subscribe(c => this.carList.cars = c);
   }
 
   onCarSaved(event: ICar): void {

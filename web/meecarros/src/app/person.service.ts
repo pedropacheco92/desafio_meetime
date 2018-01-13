@@ -5,17 +5,21 @@ import { HttpClient } from '@angular/common/http';
 import { ICar } from './models/car';
 
 @Injectable()
-export class ProspectService {
+export class PersonService {
   
   private url: string = 'http://localhost:9000/v1/persons';
     
   constructor(private http: HttpClient) { }
   
-  getProspects(): Observable<IPerson[]>{
+  getPersons(): Observable<IPerson[]>{
     return this.http.get<IPerson[]>(this.url);
   }
+
+  getPerson(id: number): Observable<IPerson> {
+    return this.http.get<IPerson>(this.url + "/" + id);
+  }
   
-  getCars(id: number): Observable<ICar[]> {
+  getCarsByPersonId(id: number): Observable<ICar[]> {
     return this.http.get<ICar[]>(this.url+ "/"+ id + "/cars");
   }
   

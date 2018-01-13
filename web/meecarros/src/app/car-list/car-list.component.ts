@@ -1,6 +1,7 @@
 import { ICar } from './../models/car';
-import { ProspectService } from './../prospect.service';
+import { PersonService } from './../person.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { IPerson } from '../models/person';
 
 @Component({
   selector: 'app-car-list',
@@ -10,10 +11,10 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class CarListComponent implements OnInit {
   @Output() carEdited = new EventEmitter<ICar>();
   
-  cars: ICar[] = [];
-  personId: number;
+  private cars: ICar[] = [];
+  private pessoa: IPerson;
   
-  constructor(private prospectService: ProspectService) {
+  constructor(private personService: PersonService) {
     
   }
   ngOnInit() {
@@ -21,15 +22,15 @@ export class CarListComponent implements OnInit {
 
   onDelete(event: any): void {
     let id: number = event.srcElement.id.replace( /^\D+/g, '');
-    this.prospectService.deleteCar(id, this.personId)
-      .subscribe(b => {
-        if (b){
-          this.cars = this.cars.filter(c => c.id != id);
-          alert("Carro deletado com sucesso!");
-        } else {
-          alert("Não foi possível deletar!");
-        }
-      });    
+    // this.prospectService.deleteCar(id, this.personId)
+    //   .subscribe(b => {
+    //     if (b){
+    //       this.cars = this.cars.filter(c => c.id != id);
+    //       alert("Carro deletado com sucesso!");
+    //     } else {
+    //       alert("Não foi possível deletar!");
+    //     }
+    //   });    
   }
   
   onEdit(item: ICar): void {

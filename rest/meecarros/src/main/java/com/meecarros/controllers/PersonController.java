@@ -26,28 +26,33 @@ public class PersonController {
 	@Autowired
 	private CarService carService;
 
+	@RequestMapping(value = "/{personId}", method = RequestMethod.GET)
+	public Person getPerson(@PathVariable Long personId) {
+		return this.service.getPessoa(personId);
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	public Collection<Person> getAllProspects() {
 		return this.service.getAllProspects();
 	}
 
-	@RequestMapping(value = "/{prospectId}/cars", method = RequestMethod.GET)
-	public Collection<Car> getCarsByProspectId(@PathVariable Long prospectId) {
-		return this.carService.getCarsByPersonId(prospectId);
+	@RequestMapping(value = "/{personId}/cars", method = RequestMethod.GET)
+	public Collection<Car> getCarsBypersonId(@PathVariable Long personId) {
+		return this.carService.getCarsByPersonId(personId);
 	}
 
-	@RequestMapping(value = "/{prospectId}/cars/{carroId}", method = RequestMethod.DELETE)
-	public boolean deleteCar(@PathVariable Long carroId, @PathVariable Long prospectId) {
-		return this.carService.deleteCar(carroId, prospectId);
+	@RequestMapping(value = "/{personId}/cars/{carroId}", method = RequestMethod.DELETE)
+	public boolean deleteCar(@PathVariable Long carroId, @PathVariable Long personId) {
+		return this.carService.deleteCar(carroId, personId);
 	}
 
-	@RequestMapping(value = "/{prospectId}/cars/{carroId}", method = RequestMethod.POST)
-	public Car saveCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long prospectId) {
+	@RequestMapping(value = "/{personId}/cars/{carroId}", method = RequestMethod.POST)
+	public Car saveCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long personId) {
 		return this.carService.saveCar(car);
 	}
 
-	@RequestMapping(value = "/{prospectId}/cars/{carroId}", method = RequestMethod.PUT)
-	public Car editCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long prospectId) {
+	@RequestMapping(value = "/{personId}/cars/{carroId}", method = RequestMethod.PUT)
+	public Car editCar(@RequestBody Car car, @PathVariable Long carroId, @PathVariable Long personId) {
 		return this.carService.editCar(car);
 	}
 
