@@ -18,7 +18,7 @@ export class CarFormComponent {
 
   labelTitulo;
 
-  private selected: IPerson;
+  private selected: number;
 
   private items: IPerson[];
 
@@ -40,11 +40,13 @@ export class CarFormComponent {
     this.items = data.pessoas;
     if (data.value) {
       this.model = data.value;
-      this.selected = this.model.person;
+      this.selected = this.model.person.id;
     }
   }
 
   onSubmit() {
+    this.model.person = this.items.find(p => p.id == this.selected);
+    console.log(this.model);
     this.dialogRef.close(this.model);
   //   if (this.model.id == 0){
   //     this.prospectService.saveCar(this.model).subscribe(c => {

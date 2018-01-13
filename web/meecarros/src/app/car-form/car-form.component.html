@@ -3,11 +3,11 @@
   <form (ngSubmit)="onSubmit()" #carForm="ngForm">
 
     <mat-form-field class="form-field">
-      <mat-select placeholder="Responsável" name="profile" required ngModel [(value)]="selected" [(ngModel)]="model.person">
-        <mat-option *ngFor="let item of items" [value]="item">
-           {{ item.name }}
+      <mat-select placeholder="Responsável" required [(ngModel)]="selected" name="pessoa">
+        <mat-option *ngFor="let item of items" [value]="item.id">
+            {{ item.name }}
         </mat-option>
-      </mat-select>
+      </mat-select>      
     </mat-form-field> <br>
 
     <mat-form-field class="form-field">

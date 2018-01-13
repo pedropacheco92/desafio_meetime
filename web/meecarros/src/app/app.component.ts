@@ -39,10 +39,6 @@ export class AppComponent implements OnInit {
     this.personService.getCarsByPersonId(id).subscribe(c => this.carList.cars = c);
   }
 
-  onCarSaved(event: ICar): void {
-    this.carList.cars.push(event);
-  }
-
   onCarEdited(event: ICar): void {
     this.showCarFormModal(event);
   }
@@ -56,7 +52,9 @@ export class AppComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      if (result) {       
+        this.personService.saveCar(result).subscribe(c => { this.carList.cars.push(c)})
+      }
     });
   }
 }
