@@ -1,9 +1,12 @@
+import { MatDialog } from '@angular/material';
+
 import { CarFormComponent } from './car-form/car-form.component';
 import { CarListComponent } from './car-list/car-list.component';
 import { ICar } from './models/car';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { CarService } from './car.service';
 import { ProspectService } from './prospect.service';
+import { IPerson } from './models/person';
 
 @Component({
   selector: 'app-root',
@@ -11,17 +14,23 @@ import { ProspectService } from './prospect.service';
   styleUrls: ['./app.component.css'] ,
   providers: [CarService, ProspectService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title: string = 'app';
-  novoCarroVisible: boolean = false;
+
+  private pessoas: IPerson[];
 
   @ViewChild (CarListComponent) carList;
-  @ViewChild (CarFormComponent) carForm;
 
-  constructor(private prospectService: ProspectService) { }
+  constructor(private prospectService: ProspectService, public dialog: MatDialog) { }
+
+  ngOnInit() {
+    this.prospectService.getProspects().subscribe(p => {
+      this.pessoas = p;
+    });
+  }
 
   btnNovoClick(): void {
-    this.novoCarroVisible = !this.novoCarroVisible;
+    this.showCarFormModal(null);
   }
 
   onSearch(value: string): void {
@@ -31,12 +40,23 @@ export class AppComponent {
   }
 
   onCarSaved(event: ICar): void {
-    this.novoCarroVisible = false;
     this.carList.cars.push(event);
   }
 
   onCarEdited(event: ICar): void {
-    this.novoCarroVisible = true;
-    this.carForm.model = event;
+    this.showCarFormModal(event);
+  }
+
+  showCarFormModal(carro: ICar) {
+    let dialogRef = this.dialog.open(CarFormComponent, {
+      data: { 
+        pessoas: this.pessoas,
+        value: carro
+       },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 }

@@ -1,24 +1,30 @@
 <div class="car-form">
   <p class="titulo">{{labelTitulo}}</p>
   <form (ngSubmit)="onSubmit()" #carForm="ngForm">
-    <span class="label-form">Responsável:</span>
-    <select class="form-field" name="profile" ngModel [(ngModel)]="model.person">
-        <option *ngFor="let item of items" [ngValue]="item">
-            {{ item.name }}
-        </option>
-    </select><br>
 
-    <span class="label-form">Modelo:</span>
-    <input class="form-field" type="text" required [(ngModel)]="model.modelo" name="modelo"><br>
-    <span class="label-form">Ano:</span>
-    <input class="form-field" type="text" required [(ngModel)]="model.ano" name="ano"><br>
+    <mat-form-field class="form-field">
+      <mat-select placeholder="Responsável" name="profile" required ngModel [(ngModel)]="model.person">
+        <mat-option *ngFor="let item of items" [value]="item">
+           {{ item.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> <br>
 
-    <span class="label-form">Cor:</span>
-    <select class="form-field" name="cores" required ngModel [(ngModel)]="model.cor">
-      <option *ngFor="let cor of cores" [ngValue]="cor">
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Modelo" required [(ngModel)]="model.modelo" name="modelo">
+    </mat-form-field> <br>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Ano" required [(ngModel)]="model.ano" name="ano">
+    </mat-form-field> <br>
+
+    <mat-form-field class="form-field">
+      <mat-select placeholder="Cor" name="cores" required ngModel [(ngModel)]="model.cor">
+        <mat-option *ngFor="let cor of cores" [value]="cor">
           {{ cor }}
-      </option>
-    </select><br>
+        </mat-option>
+      </mat-select>
+    </mat-form-field> <br>
 
     <input type="submit" value="Salvar">
   </form>

@@ -1,4 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Inject } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { CarService } from './../car.service';
 import { ProspectService } from '../prospect.service';
@@ -11,7 +13,7 @@ import { IPerson } from './../models/person';
   templateUrl: './car-form.component.html',
   styleUrls: ['./car-form.component.css']
 })
-export class CarFormComponent implements OnInit {
+export class CarFormComponent {
   @Output() saved = new EventEmitter<ICar>();
 
   labelTitulo;
@@ -32,27 +34,27 @@ export class CarFormComponent implements OnInit {
 
   private person: string;
 
-  constructor(private carService: CarService, private prospectService: ProspectService) { 
+  constructor(public dialogRef: MatDialogRef<CarFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { 
     this.labelTitulo = "Novo Carro";
-  }
-  
-  ngOnInit() {
-    this.prospectService.getProspects().subscribe(p => {
-      this.items = p;
-    });
+    this.items = data.pessoas;
+    if (data.value) {
+      this.model = data.value;
+    }
   }
 
   onSubmit() {
-    if (this.model.id == 0){
-      this.prospectService.saveCar(this.model).subscribe(c => {
-        this.saved.emit(c);
-        alert("Carro salvo!");
-      });
-    } else {
-      this.prospectService.editCar(this.model).subscribe(c => {
-        this.saved.emit(c);
-        alert("Carro editado!");
-      });
-    }   
+    this.dialogRef.close(this.model);
+  //   if (this.model.id == 0){
+  //     this.prospectService.saveCar(this.model).subscribe(c => {
+  //       this.saved.emit(c);
+  //       alert("Carro salvo!");
+  //     });
+  //   } else {
+  //     this.prospectService.editCar(this.model).subscribe(c => {
+  //       this.saved.emit(c);
+  //       alert("Carro editado!");
+  //     });
+  //   }   
   }
+  
 }

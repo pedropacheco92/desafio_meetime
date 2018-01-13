@@ -1,16 +1,20 @@
 <div style="text-align:center">
-    <input type="text" class="search_token" placeholder="Token do pipedrive" #box (keyup.enter)="onSearch(box.value)" >
+  <mat-toolbar>
+      <span>MeeCarros</span>
+      <button mat-raised-button color="primary" class="btn_novo" (click)='btnNovoClick()'>Novo</button>
+      <span class="spacer"></span>
+      <input type="text" class="search_token" placeholder="Token do pipedrive" #box (keyup.enter)="onSearch(box.value)" >
+  </mat-toolbar>
     
   <div class="main_page">
     <div class="buttons">
-      <button class="btn_novo" type="button" (click)='btnNovoClick()'>Novo</button>
     </div>
 
     <!-- Lista de carros registrados -->
     <app-car-list (carEdited)="onCarEdited($event)"></app-car-list>
 
     <!-- Formulário para o preenchimento de novos carros -->
-    <app-car-form *ngIf="novoCarroVisible" (saved)="onCarSaved($event)"></app-car-form>
+    <!-- <app-car-form *ngIf="novoCarroVisible" (saved)="onCarSaved($event)"></app-car-form> -->
   </div>
 
 </div>
