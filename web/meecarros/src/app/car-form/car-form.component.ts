@@ -17,6 +17,9 @@ export class CarFormComponent {
   @Output() saved = new EventEmitter<ICar>();
 
   labelTitulo;
+
+  private selected: IPerson;
+
   private items: IPerson[];
 
   private cores: string[] = ["Preto", "Branco", "Verde"];
@@ -32,13 +35,12 @@ export class CarFormComponent {
     cor: "" 
   };
 
-  private person: string;
-
   constructor(public dialogRef: MatDialogRef<CarFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { 
     this.labelTitulo = "Novo Carro";
     this.items = data.pessoas;
     if (data.value) {
       this.model = data.value;
+      this.selected = this.model.person;
     }
   }
 
