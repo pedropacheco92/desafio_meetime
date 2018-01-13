@@ -11,27 +11,8 @@ export class PersonService {
     
   constructor(private http: HttpClient) { }
   
-  getPersons(): Observable<IPerson[]>{
-    return this.http.get<IPerson[]>(this.url);
+  getPersons(token: string): Observable<IPerson[]>{
+    return this.http.get<IPerson[]>(this.url + "/" + token);
   }
 
-  getPerson(id: number): Observable<IPerson> {
-    return this.http.get<IPerson>(this.url + "/" + id);
-  }
-  
-  getCarsByPersonId(id: number): Observable<ICar[]> {
-    return this.http.get<ICar[]>(this.url+ "/"+ id + "/cars");
-  }
-  
-  deleteCar(id: number, personId: number): Observable<boolean> {
-    return this.http.delete<boolean>(this.url + "/" + personId + "/cars/" + id);
-  }
-
-  saveCar(car: ICar): Observable<ICar> {
-    return this.http.post<ICar>(this.url + "/" + car.person.id + "/cars/" + car.id, car);
-  }
-
-  editCar(car: ICar): Observable<ICar> {
-    return this.http.put<ICar>(this.url + "/" + car.person.id + "/cars/" + car.id, car);
-  }
 }

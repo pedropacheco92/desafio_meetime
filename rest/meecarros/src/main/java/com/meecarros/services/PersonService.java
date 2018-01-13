@@ -9,9 +9,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.meecarros.models.Person;
-import com.meecarros.models.PersonDTO;
 import com.meecarros.models.PersonsDTO;
-import com.meecarros.utils.Parameters;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,27 +19,23 @@ public class PersonService {
 
 	private RestTemplate restTemplate;
 
+	public static final String URL = "https://teste7.pipedrive.com/v1";
+
 	@PostConstruct
 	private void init() {
 		this.restTemplate = new RestTemplate();
 	}
 
-	public List<Person> getAllProspects() {
-		PersonsDTO persons = this.restTemplate.getForObject(Parameters.URL + "/persons?api_token=" + Parameters.TOKEN, PersonsDTO.class);
-
-		return persons.getData();
-	}
-
-	public Person getPessoa(Long personId) {
-		PersonDTO person = null;
+	public List<Person> getAllProspects(String token) {
+		PersonsDTO persons = null;
 		try {
-			person = this.restTemplate.getForObject(Parameters.URL + "/persons/" + personId + "?api_token=" + Parameters.TOKEN, PersonDTO.class);
+			persons = this.restTemplate.getForObject(URL + "/persons?api_token=" + token, PersonsDTO.class);
 		} catch (RestClientException e) {
-			log.info("Não foi encontrada pessoa com id: " + personId);
+			log.info("Não foi encontrado token: " + token);
 			return null;
 		}
 
-		return person.getData();
+		return persons.getData();
 	}
 
 }

@@ -15,10 +15,17 @@ export class CarService {
   getCars() {
     this.http.get(this.url).subscribe(data => console.log(data));
   }
+      
+  deleteCar(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(this.url + "/" + id);
+  }
 
-  private handleError(error: Response) {
-    console.log(error);
-    return Observable.throw(error);
-  } 
+  saveCar(car: ICar): Observable<ICar> {
+    return this.http.post<ICar>(this.url + "/" + car.id, car);
+  }
+
+  editCar(car: ICar): Observable<ICar> {
+    return this.http.post<ICar>(this.url + "/" + car.id, car);
+  }
 
 }

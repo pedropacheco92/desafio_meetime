@@ -1,4 +1,4 @@
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { CarFormComponent } from './car-form/car-form.component';
 import { CarListComponent } from './car-list/car-list.component';
@@ -14,46 +14,44 @@ import { IPerson } from './models/person';
   styleUrls: ['./app.component.css'] ,
   providers: [CarService, PersonService]
 })
-export class AppComponent implements OnInit {
-  title: string = 'app';
+export class AppComponent {
 
   private pessoas: IPerson[];
 
+  private showBtn: boolean = false;
+
   @ViewChild (CarListComponent) carList;
 
-  constructor(private personService: PersonService, public dialog: MatDialog) { }
-
-  ngOnInit() {
-    this.personService.getPersons().subscribe(p => {
-      this.pessoas = p;
-    });
-  }
+  constructor(private personService: PersonService, private carService: CarService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
   btnNovoClick(): void {
-    this.showCarFormModal(null);
-  }
-
-  onSearch(value: string): void {
-    let id = Number(value); // verificar erro
-    this.personService.getPerson(id).subscribe(p => this.carList.pessoa = p);
-    this.personService.getCarsByPersonId(id).subscribe(c => this.carList.cars = c);
-  }
-
-  onCarEdited(event: ICar): void {
-    this.showCarFormModal(event);
-  }
-
-  showCarFormModal(carro: ICar) {
     let dialogRef = this.dialog.open(CarFormComponent, {
       data: { 
         pessoas: this.pessoas,
-        value: carro
+        titulo: "Novo Carro"
        },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {       
-        this.personService.saveCar(result).subscribe(c => { this.carList.cars.push(c)})
+        this.carService.saveCar(result).subscribe(c => { this.carList.onJustSaved(c)})
+      }
+    });
+  }
+
+  onSearch(value: string): void {
+    console.log(value);
+    this.personService.getPersons(value).subscribe(persons => {
+      console.log(persons);
+      if (!persons) {
+        this.snackBar.open("Este token não existe no Pipedrive!", null, { duration: 2000, verticalPosition: 'top' });
+      } else if (!persons.length){
+        this.snackBar.open("Não existem pessoas cadastradas com esse token!", null, { duration: 2000, verticalPosition: 'top' });
+      } else {
+        this.snackBar.open("Token encontrado com " + persons.length + "pessoas", null, { duration: 2000, verticalPosition: 'top' });
+        this.showBtn = true;
+        this.pessoas = persons;
+        this.carList.pessoas = persons;
       }
     });
   }

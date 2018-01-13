@@ -1,6 +1,10 @@
+import { CarService } from './../car.service';
+import { CarFormComponent } from './../car-form/car-form.component';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
+
 import { ICar } from './../models/car';
 import { PersonService } from './../person.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IPerson } from '../models/person';
 
 @Component({
@@ -8,30 +12,47 @@ import { IPerson } from '../models/person';
   templateUrl: './car-list.component.html',
   styleUrls: ['./car-list.component.css']
 })
-export class CarListComponent implements OnInit {
-  @Output() carEdited = new EventEmitter<ICar>();
+export class CarListComponent {
 
   private cars: ICar[] = [];
-  private pessoa: IPerson;
 
-  constructor(private personService: PersonService) { }
+  public pessoas: IPerson[];
 
-  ngOnInit() {
-  }
+  constructor(private carService: CarService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
   onDelete(item: ICar): void {
-    this.personService.deleteCar(item.id, this.pessoa.id).subscribe(b => {
+    this.carService.deleteCar(item.id).subscribe(b => {
       if (b) {
         this.cars = this.cars.filter(c => c.id != item.id);
-        alert("Carro deletado com sucesso!");
+        this.snackBar.open("Carro deletado com sucesso!", null, { duration: 2000, verticalPosition: 'top' });
       } else {
-        alert("Não foi possível deletar!");
+        this.snackBar.open("Não foi possível deletar!", null, { duration: 2000, verticalPosition: 'top' });
       }
     }); 
   }
 
   onEdit(item: ICar): void {
-    this.carEdited.emit(item);
+    let dialogRef = this.dialog.open(CarFormComponent, {
+      data: { 
+        pessoas: this.pessoas,
+        titulo: "Editar Carro",
+        value: item
+       },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {       
+        this.carService.editCar(result).subscribe(c => {
+          if (c) {
+            this.snackBar.open("Carro editado com sucesso!", null, { duration: 2000, verticalPosition: 'top' });
+          }
+        });
+      }
+    });
+  }
+
+  onJustSaved(car: ICar): void {
+      this.cars.push(car);    
   }
 
 }

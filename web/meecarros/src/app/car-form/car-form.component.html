@@ -3,29 +3,38 @@
   <form (ngSubmit)="onSubmit()" #carForm="ngForm">
 
     <mat-form-field class="form-field">
-      <mat-select placeholder="Responsável" required [(ngModel)]="selected" name="pessoa">
+      <mat-select placeholder="Responsável" required [formControl]="pessoa" [(ngModel)]="selected" name="pessoa">
         <mat-option *ngFor="let item of items" [value]="item.id">
-            {{ item.name }}
+          {{ item.name }}
         </mat-option>
-      </mat-select>      
-    </mat-form-field> <br>
+      </mat-select>
+      <mat-error *ngIf="cor.invalid">Responsável não pode ser vazio</mat-error>
+    </mat-form-field>
+    <br>
 
     <mat-form-field class="form-field">
-      <input matInput placeholder="Modelo" required [(ngModel)]="model.modelo" name="modelo">
-    </mat-form-field> <br>
+      <input id="modelo" matInput placeholder="Modelo" required [(ngModel)]="model.modelo" name="modelo" [formControl]="modelo">
+      <mat-error *ngIf="modelo.invalid">Modelo não pode ser vazio</mat-error>
+    </mat-form-field>
+    <br>
 
     <mat-form-field class="form-field">
-      <input matInput placeholder="Ano" required [(ngModel)]="model.ano" name="ano">
-    </mat-form-field> <br>
+      <input matInput placeholder="Ano" type="number" required [(ngModel)]="model.ano" name="ano" [formControl]="ano" class="input-ano">
+      <mat-error *ngIf="ano.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
 
     <mat-form-field class="form-field">
-      <mat-select placeholder="Cor" name="cores" required ngModel [(ngModel)]="model.cor">
+      <mat-select placeholder="Cor" name="cores" required ngModel [formControl]="cor" [(ngModel)]="model.cor">
         <mat-option *ngFor="let cor of cores" [value]="cor">
           {{ cor }}
         </mat-option>
       </mat-select>
-    </mat-form-field> <br>
+      <mat-error *ngIf="cor.invalid">Cor não pode ser vazio</mat-error>
+    </mat-form-field>
+    <br>
 
-    <input type="submit" value="Salvar">
+    <button mat-raised-button (click)='onCalcelarClick()' class="btn-form">Cancelar</button>
+    <button mat-raised-button (click)='onSalvarClick()' color="primary" class="btn-salvar btn-form" [disabled]="!carForm.form.valid">Salvar</button>
   </form>
 </div>

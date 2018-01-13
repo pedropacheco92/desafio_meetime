@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +37,21 @@ public class CarController {
 			log.info("Não foi encontrado carro com id: " + carroId);
 		}
 		return car;
+	}
+
+	@RequestMapping(value = "/{carroId}", method = RequestMethod.DELETE)
+	public boolean deleteCar(@PathVariable Long carroId) {
+		return this.service.deleteCar(carroId);
+	}
+
+	@RequestMapping(value = "/{carroId}", method = RequestMethod.POST)
+	public Car saveCar(@RequestBody Car car, @PathVariable Long carroId) {
+		return this.service.saveCar(car, carroId);
+	}
+
+	@RequestMapping(value = "/{carroId}", method = RequestMethod.PUT)
+	public Car editCar(@RequestBody Car car, @PathVariable Long carroId) {
+		return this.service.editCar(car, carroId);
 	}
 
 }

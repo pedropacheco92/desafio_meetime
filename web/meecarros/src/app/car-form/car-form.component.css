@@ -3,7 +3,12 @@
 }
 
 .form-field {
-    width: 290px;
+    width: 300px;
+}
+
+input.input-ano::-webkit-outer-spin-button,
+input.input-ano::-webkit-inner-spin-button {
+  display: none;
 }
 
 .label-form {
@@ -12,8 +17,23 @@
 }
 
 .titulo {
+    margin: unset;
     font-size: 26px;
     text-align: center;
-    margin-top: 20px;
     margin-bottom: 15px;
+}
+
+.error {
+    font-size: 9px;
+    color: darksalmon;
+    position: relative;
+    top: 20px;
+}
+
+.btn-salvar {
+    float: right;
+}
+
+.btn-form {
+    margin-top: 15px;
 }
