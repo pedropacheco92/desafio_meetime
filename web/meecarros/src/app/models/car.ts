@@ -4,5 +4,5 @@ export interface ICar {
     modelo: string;
     ano: string; // apenas carros com menos de 30 anos são aceitos
     cor: string; // obrigatoriamente deve ser branco, preto ou verde    
-    person: IPerson;
+    personId: number;
 }

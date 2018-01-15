@@ -35,6 +35,6 @@
     <br>
 
     <button mat-raised-button (click)='onCalcelarClick()' class="btn-form">Cancelar</button>
-    <button mat-raised-button (click)='onSalvarClick()' color="primary" class="btn-salvar btn-form" [disabled]="!carForm.form.valid">Salvar</button>
+    <button mat-raised-button (click)='onSalvarClick()' color="primary" class="btn-salvar btn-form" [disabled]="!formValid()">Salvar</button>
   </form>
 </div>

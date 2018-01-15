@@ -41,6 +41,9 @@ export class AppComponent {
 
   onSearch(value: string): void {
     this.personService.getPersons(value).subscribe(persons => {
+      this.showBtn = false;
+      this.pessoas = [];
+      this.carList.pessoas = [];
       if (!persons) {
         this.snackBar.open("Este token não existe no Pipedrive!", null, { duration: 2000, verticalPosition: 'top' });
       } else if (!persons.length){

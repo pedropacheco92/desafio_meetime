@@ -27,33 +27,36 @@ export class CarFormComponent implements AfterViewChecked {
   private submit: boolean;
 
   private year = new Date().getFullYear();
-
-  modelo = new FormControl('', [Validators.required]);
-
-  pessoa = new FormControl('', [Validators.required]);
-
-  cor = new FormControl('', [Validators.required]);
-
-  ano = new FormControl('', [Validators.required, Validators.max(this.year), Validators.min(this.year - 30)]);
-
-
+    
   model: ICar = {
     id: 0,
-    person: {
-      id: 0,
-      name: ""
-    },
+    personId: 0,
     modelo: "",
     ano: "",
     cor: "" 
   };
+
+  modelo = new FormControl(this.model.modelo, [Validators.required]);
+
+  pessoa = new FormControl(this.model.personId, [Validators.required]);
+
+  cor = new FormControl(this.model.cor, [Validators.required]);
+
+  ano = new FormControl(this.model.ano, [Validators.required, Validators.max(this.year), Validators.min(this.year - 30)]);
+
+  carForm = new FormGroup({
+    'modelo': this.modelo,
+    'pessoa': this.pessoa,
+    'cor': this.cor,
+    'ano': this.ano
+  })
 
   constructor(public dialogRef: MatDialogRef<CarFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private ref: ChangeDetectorRef) { 
     this.items = data.pessoas;
     this.labelTitulo = data.titulo;
     if (data.value) {
       this.model = data.value;
-      this.selected = this.model.person.id;
+      this.selected = this.model.personId;
     }
   }
 
@@ -84,11 +87,15 @@ export class CarFormComponent implements AfterViewChecked {
   
   onSubmit() {
     if (this.submit) {
-      this.model.person = this.items.find(p => p.id == this.selected);
+      this.model.personId = this.selected;
       this.dialogRef.close(this.model);
     } else {
       this.dialogRef.close(null);
     }
+  }
+
+  formValid(): boolean {    
+    return this.carForm.valid;
   }
   
 }

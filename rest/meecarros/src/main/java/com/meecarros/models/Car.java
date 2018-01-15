@@ -17,6 +17,6 @@ public class Car {
 
 	private String ano;
 
-	private Person person;
+	private Long personId;
 
 }
