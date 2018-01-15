@@ -4,6 +4,9 @@ Para executar o back-end basta entrar na pasta /rest/meecarros e executar 'mvn c
 Ele irá buildar o projeto e gerar o arquivo meecarros-rest.jar, dentro da pasta target.
 Para rodar basta executar 'cd target' e 'java -jar meecarros-rest.jar'.
 
+Caso queira rodar o codigo por uma IDE, foi utilzado eclipse com lombok, então é necessário baixar o lombok  em: https://projectlombok.org/
+Então selecionar a pasta do eclipse e realizar o update. No eclipse deve importar um projeto maven e executar o arquivo Application.java
+
 Para executar o front-end basta entrar na pasta /web/meecarros e executar 'ng serve -o'
 
 No reposotório tem o arquivo 'meecarros.postman_collection', caso queira importar as consultas no Postman
