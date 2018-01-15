@@ -1,0 +1,193 @@
+{
+	"info": {
+		"name": "meecarros",
+		"_postman_id": "c7edfb14-d6c5-bbc6-79f1-fea5e7e9532d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Link pipedrive",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://teste7.pipedrive.com/v1/persons?api_token=7b89e5ee230957c0971499e1c502fc18e0e23c89",
+					"protocol": "https",
+					"host": [
+						"teste7",
+						"pipedrive",
+						"com"
+					],
+					"path": [
+						"v1",
+						"persons"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "7b89e5ee230957c0971499e1c502fc18e0e23c89",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Todas as pessoas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:9000/v1/persons/7b89e5ee230957c0971499e1c502fc18e0e23c89",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"persons",
+						"7b89e5ee230957c0971499e1c502fc18e0e23c89"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Todos os carros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:9000/v1/carros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"carros"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Carro com Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:9000/v1/carros/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"carros",
+						"1"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Salva um carro",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "     {\n        \"id\": 0,\n        \"modelo\": \"carro4\",\n        \"cor\": \"Verde\",\n        \"ano\": \"1990\",\n        \"personId\": 1\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:9000/v1/carros/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"carros",
+						"0"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Edita um carro",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "     {\n        \"id\": 1,\n        \"modelo\": \"carro4editado\",\n        \"cor\": 1,\n        \"ano\": \"1990\",\n        \"person\": {\n        \t\"id\": 1,\n        \t\"name\": \"Pessoa 1\"\n        }\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:9000/v1/carros/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"carros",
+						"1"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Deleta um carro",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:9000/v1/carros/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"carros",
+						"1"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

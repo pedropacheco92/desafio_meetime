@@ -1,6 +1,8 @@
 package com.meecarros.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 
@@ -33,6 +35,10 @@ public class PersonService {
 		} catch (RestClientException e) {
 			log.info("Não foi encontrado token: " + token);
 			return null;
+		}
+
+		if (Objects.isNull(persons.getData())) {
+			return new ArrayList<>();
 		}
 
 		return persons.getData();

@@ -15,34 +15,76 @@
  */
 package car;
 
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.meecarros.app.Application;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = Application.class)
 @AutoConfigureMockMvc
 public class CarControllerTests {
 
-	// TODO
+	@Autowired
+	private MockMvc mockMvc;
 
-	// @Autowired
-	// private MockMvc mockMvc;
-	//
-	// @Test
-	// public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
-	//
-	// this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk())
-	// .andExpect(jsonPath("$.content").value("Hello, World!"));
-	// }
-	//
-	// @Test
-	// public void paramGreetingShouldReturnTailoredMessage() throws Exception {
-	//
-	// this.mockMvc.perform(get("/greeting").param("name", "Spring Community"))
-	// .andDo(print()).andExpect(status().isOk())
-	// .andExpect(jsonPath("$.content").value("Hello, Spring Community!"));
-	// }
+	@Test
+	public void testGetAllCars() throws Exception {
+		this.mockMvc.perform(get("/v1/carros")).andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$").exists())
+				.andExpect(jsonPath("$", hasSize(0)));
+	}
+
+	@Test
+	public void testGetCarFail() throws Exception {
+		this.mockMvc.perform(get("/v1/carros/1")).andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$").doesNotExist()); // nao tem carro cadastrado ainda
+	}
+
+	@Test
+	public void testSaveCar() throws Exception {
+		String json = "{ \"id\": 0, \"modelo\": \"modeloX\", \"cor\": \"Branco\", \"ano\": \"2015\", \"personId\": 1 }";
+
+		this.mockMvc.perform(post("/v1/carros/0")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json)).andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$").exists());
+	}
+
+	@Test
+	public void testEditCar() throws Exception {
+		String json = "{ \"id\": 1, \"modelo\": \"modeloX\", \"cor\": \"Branco\", \"ano\": \"2010\", \"personId\": 1 }";
+
+		this.mockMvc.perform(put("/v1/carros/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json)).andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$").exists());
+	}
+
+	@Test
+	public void testDeleteCar() throws Exception {
+		this.mockMvc.perform(delete("/v1/carros/1"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$").exists());
+	}
 
 }

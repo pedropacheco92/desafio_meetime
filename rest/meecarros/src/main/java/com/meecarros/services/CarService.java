@@ -1,7 +1,9 @@
 package com.meecarros.services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.meecarros.models.Car;
 
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -16,6 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 public class CarService {
 
 	private static Map<Long, Car> carros = new HashMap<>();
+
+	@Setter
+	private List<Long> currentProspectId = new ArrayList<>();
 
 	public Collection<Car> getAllCars() {
 		return carros.values();
