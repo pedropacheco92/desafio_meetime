@@ -1,0 +1,11 @@
+O desafio foi realizado utilizando Angular no front-end e Java com Spring no back-end
+
+Para executar o back-end basta entrar na pasta /rest/meecarros e executar 'mvn clean install'
+Ele irá buildar o projeto e gerar o arquivo meecarros-rest.jar, dentro da pasta target.
+Para rodar basta executar 'cd target' e 'java -jar meecarros-rest.jar'.
+
+Para executar o front-end basta entrar na pasta /web/meecarros e executar 'ng serve -o'
+
+No reposotório tem o arquivo 'meecarros.postman_collection', caso queira importar as consultas no Postman
+
+O token do pipedrive utilizado no desafio foi: 7b89e5ee230957c0971499e1c502fc18e0e23c89
